@@ -24,7 +24,7 @@ function playGame(){
     var totalGuesses = 1;
 
     //loop until user
-    while(currentGuess != target || isNaN(currentGuess){
+    while(currentGuess != target || isNaN(currentGuess)){
         if (currentGuess < target){
             currentGuess = parseInt(prompt('Enter a higher number'));
 
