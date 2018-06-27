@@ -11,7 +11,7 @@ function playGame(){
 
 
     var to = parseInt(prompt('Enter the higher bound.'));
-    while (to < 0 || to > 1000 || to < from || isNaN(to)){
+    while (to < 0 || to > 1000 || to <= from || isNaN(to)){
         to = parseInt(prompt('Enter a numer less than 1000 and greater than ' + from))
     }
     //get an integer between [from, to]
@@ -21,22 +21,25 @@ function playGame(){
     var currentGuess = parseInt(prompt('Guess a number between '+ from + ' and ' + to));
     while (currentGuess < from || currentGuess > to || isNaN(currentGuess)){
         currentGuess = parseInt(prompt('Enter a number between ' + from + ' and ' + to))
+    }
     var totalGuesses = 1;
-
+    
     //loop until user
-    while(currentGuess != target || isNaN(currentGuess)){
-        if (currentGuess < target){
-            currentGuess = parseInt(prompt('Enter a higher number'));
+        while(currentGuess != target || isNaN(currentGuess)){
+            if (currentGuess < target){
+                currentGuess = parseInt(prompt('Enter a higher number'));
 
-            totalGuesses++;
-        }else if (currentGuess > target){
-            currentGuess = parseInt(prompt('Enter a lower number'));
+                totalGuesses++;
+            }
+            else if (currentGuess > target){
+                currentGuess = parseInt(prompt('Enter a lower number'));
 
-            totalGuesses++
+                totalGuesses++;
+            }
+            
         }
-    }
-
-    alert('It took ' +totalGuesses + ' tries to guess the correct number.');
-    }
+    alert('It took ' + totalGuesses + ' tries to guess the correct number.');
+   
+        
 }
     
