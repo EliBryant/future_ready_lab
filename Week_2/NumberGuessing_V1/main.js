@@ -25,18 +25,23 @@ function playGame(){
     var totalGuesses = 1;
     
     //loop until user
-        while(currentGuess != target || isNaN(currentGuess)){
+        while(currentGuess != target || isNaN(currentGuess || currentGuess > to || currentGuess < from)){
             if (currentGuess < target){
                 currentGuess = parseInt(prompt('Enter a higher number'));
 
                 totalGuesses++;
+            }
+            else if (isNaN(currentGuess)){
+                currentGuess = parseInt(prompt('Enter a number'));
             }
             else if (currentGuess > target){
                 currentGuess = parseInt(prompt('Enter a lower number'));
 
                 totalGuesses++;
             }
-            
+            else if (currentGuess > to || currentGuess < from){
+                currentGuess = parseInt(prompt('Enter a number between ' + from + ' and ' + to))
+            }
         }
     alert('It took ' + totalGuesses + ' tries to guess the correct number.');
    
