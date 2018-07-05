@@ -1,24 +1,23 @@
 //define an object that describes a circle
 /*var circle = {
     diameter: 80,
-    xCoor: 0,
-    yCoor: 0,
+    xCoor: 320,
+    yCoor: 180,
     color:[255,0,0],
     xSpeed: 10,
     ySpeed: 10
 }
 */
 function Ball(x,y,diameter, color, xSpeed, ySpeed){
-    //this is a keyword that refers to the individual object
     this.xCoor = x;
     this.yCoor = y;
     this.diameter = diameter;
-    this.color = color || [0,0,0]; //[0,0,0] makes default color black
-    this.xSpeed = xSpeed || 5;
-    this.ySpeed  = ySpeed || 7;
+    this.color = color || [0,0,0]; 
+    this.xSpeed = xSpeed || 8;
+    this.ySpeed  = ySpeed || 10;
 }
 function randomNumberOfBalls(){
-    amountOfBalls = random([2,5,10,16]); //randomly chooses from array so that only 2, 5, 10, or 16 balls show up
+    amountOfBalls = random([2,5,10,16]); 
     var ballList = [];
     for(var i = 0; i<amountOfBalls; i++){
         ballList.push(addRandomBall());
@@ -28,46 +27,43 @@ function randomNumberOfBalls(){
 function addRandomBall(){ //creates a random ball
     return new Ball (random(0,width),random(0,height), random (10,80),randomColor(), random(0,10), random(0,10));
 }
-//the ball changes to a random color when the balls bounces back from the edges of the canvas
+//the balls change to a random color when the balls bounce
 function randomColor() {
     return [random(0,255), random(0,255), random(0,255)];
 }
 //compares the sum of two radii to the distance between the centers of the two colliding balls
 function ballsCollide (ball1, ball2){
     var radiiSum = (ball1.diameter + ball2.diameter)/2; 
-    var distanceBetweenBalls = dist(ball1.xCoor,ball1.yCoor,ball2.xCoor,ball2.yCoor); //dist() allows you to find distance between center of two circles
-    if(distanceBetweenBalls > radiiSum){ //If the distance between the circles is less than the sum of the circles' radii, they are colliding/touching
+    var distanceBetweenBalls = dist(ball1.xCoor,ball1.yCoor,ball2.xCoor,ball2.yCoor); 
+    if(distanceBetweenBalls > radiiSum){ //If the distance between the balls is less than the sum of the balls' radii then they are colliding
         return false;
     }
     else{
         return true;
     }
 }
-//setup is run once at the beginning before we draw
 function setup() {
     backgroundColor = randomColor(); //background is a random color everytime the page refreshes
     frameRate(20);
     ballList = randomNumberOfBalls();
     
     //allows user to create their own canvas size
-    var width = (parseInt(prompt("Type in the width for the canvas.")));
-    while (isNaN(width)|| width<=0){ //prevents user from typing in a negative number or a letter
-        width = parseInt(prompt("Enter a NUMBER for the width of your canvas that is greater than 0.")); 
+    var width = (parseInt(prompt("Enter the width of the canvas.")));
+    while (isNaN(width)|| width<=0){ // Ensures that they enter a valid number 
+        width = parseInt(prompt("Enter a number for the width of your canvas that is greater than 0.")); 
     }
     var height = (parseInt(prompt("Type in the height for the canvas.")));
-    while (isNaN(height) || height<=0){ //prevents user from typing in a negative number or a letter
-        height = parseInt(prompt("Enter a NUMBER for the height of your canvas that is greater than 0."));
+    while (isNaN(height) || height<=0){ // Ensures that they enter a valid number
+        height = parseInt(prompt("Enter a number for the height of your canvas that is greater than 0."));
     }
     createCanvas(width, height);
 }
 function draw() {
-    background(backgroundColor); //avoids showing the trail of balls
+    background(backgroundColor); // Hides the trail of balls
     for (var i =0; i < ballList.length; i++){
         fill(ballList[i].color);
-        ellipse(ballList[i].xCoor, ballList[i].yCoor, ballList[i].diameter);
-    
-    //boundaries placed on the edge of the canvas   
-    // if the xCoor of circle is greater than the length of the canvas, bounce back
+        ellipse(ballList[i].xCoor, ballList[i].yCoor, ballList[i].diameter) 
+    // if the xCoor of circle is greater than the length of the canvas then bounce back
     //when circle bounces back, size changes
     if(ballList[i].xCoor > width || ballList[i].xCoor <0){
         ballList[i].diameter = random (10,80);
